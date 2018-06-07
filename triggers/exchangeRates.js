@@ -1,5 +1,5 @@
 const getExchangeRates = (z, bundle) => {
-  const promise = z.request('https://api.fixer.io/latest?base='+bundle.inputData.from);
+  const promise = z.request('https://frankfurter.app/latest?base='+bundle.inputData.from);
   return promise.then((response) => {
     let rates = response.json.rates;
     if (bundle.inputData.to) {
