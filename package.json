@@ -1,6 +1,6 @@
 {
   "name": "zapier-platform-example-app-minimal",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "An example app for the Zapier platform.",
   "repository": "zapier/zapier-platform-example-app-minimal",
   "homepage": "https://zapier.com/",
@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "moment": "^2.19.2",
-    "zapier-platform-core": "3.3.0"
+    "zapier-platform-core": "6.1.0"
   },
   "devDependencies": {
     "mocha": "3.2.0",
