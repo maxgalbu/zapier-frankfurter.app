@@ -1,10 +1,16 @@
 const getExchangeRates = (z, bundle) => {
-  const promise = z.request('https://frankfurter.app/latest?base='+bundle.inputData.from);
+  let requestDate = bundle.inputData.date;
+  if (!requestDate) {
+    requestDate = "latest";
+  }
+  
+  const promise = z.request('https://frankfurter.app/'+requestDate+'?base='+bundle.inputData.from);
   return promise.then((response) => {
     let rates = response.json.rates;
+    let date = response.json.date;
     if (bundle.inputData.to) {
       return [{
-        id: bundle.inputData.to,
+        id: bundle.inputData.to + date,
         from: bundle.inputData.from,
         to: bundle.inputData.to,
         rate: rates[bundle.inputData.to],
@@ -23,18 +29,4 @@ const getExchangeRates = (z, bundle) => {
   });
 };
 
-module.exports = {
-  key: 'exchangeRates',
-  noun: 'Exchange Rates',
-  display: {
-    label: 'Get Exchange Rates',
-    description: 'Get exchange rates'
-  },
-  operation: {
-    perform: getExchangeRates,
-    inputFields: [
-      {key: 'from', type: 'string', required: true},
-      {key: 'to', type: 'string', required: false},
-    ],
-  }
-};
+module.exports = getExchangeRates;

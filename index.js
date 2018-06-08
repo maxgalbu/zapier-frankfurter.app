@@ -1,4 +1,5 @@
-const exchangeRates = require('./triggers/exchangeRates');
+const triggerExchangeRates = require('./src/triggerExchangeRates');
+const getExchangeRates = require('./src/getExchangeRates');
 
 // We can roll up all our behaviors in an App.
 const App = {
@@ -20,11 +21,44 @@ const App = {
 
   // If you want your trigger to show up, you better include it here!
   triggers: {
+    'triggerExchangeRates': {
+      key: 'triggerExchangeRates',
+      noun: 'Exchange Rates',
+      display: {
+        label: 'Trigger Exchange Rates',
+        description: 'Trigger exchange rates'
+      },
+      operation: {
+        perform: triggerExchangeRates,
+        inputFields: [
+          {key: 'hour', choices: {
+            '10am': '10 AM',
+            '11am': '11 AM',
+            '12am': '12 AM'}, required: true},
+          {key: 'from', type: 'string', required: true},
+          {key: 'to', type: 'string', required: false},
+        ],
+      }
+    } // new line of code
   },
 
   // If you want your searches to show up, you better include it here!
   searches: {
-    [exchangeRates.key]: exchangeRates // new line of code
+    'exchangeRates': {
+      key: 'exchangeRates',
+      noun: 'Exchange Rates',
+      display: {
+        label: 'Get Exchange Rates',
+        description: 'Get exchange rates'
+      },
+      operation: {
+        perform: getExchangeRates,
+        inputFields: [
+          {key: 'from', type: 'string', required: true},
+          {key: 'to', type: 'string', required: false},
+        ],
+      }
+    }
   },
 
   // If you want your creates to show up, you better include it here!
