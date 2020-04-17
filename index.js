@@ -1,4 +1,5 @@
 const triggerExchangeRates = require('./src/triggerExchangeRates');
+const triggerMultipleExchangeRates = require('./src/triggerMultipleExchangeRates');
 const getExchangeRates = require('./src/getExchangeRates');
 
 // We can roll up all our behaviors in an App.
@@ -23,10 +24,10 @@ const App = {
   triggers: {
     'triggerExchangeRates': {
       key: 'triggerExchangeRates',
-      noun: 'Exchange Rates',
+      noun: 'Exchange Rate',
       display: {
-        label: 'Trigger Exchange Rates',
-        description: 'Trigger exchange rates'
+        label: 'Trigger with Exchange Rates',
+        description: 'Trigger that returns exchange rates'
       },
       operation: {
         perform: triggerExchangeRates,
@@ -39,7 +40,26 @@ const App = {
           {key: 'to', type: 'string', required: false},
         ],
       }
-    } // new line of code
+    },
+    'triggerMultipleExchangeRates': {
+      key: 'triggerMultipleExchangeRates',
+      noun: 'Exchange Rate (multiple currencies)',
+      display: {
+        label: 'Trigger with Exchange Rates (multiple currencies)',
+        description: 'Trigger that returns exchange rates from multiple currencies'
+      },
+      operation: {
+        perform: triggerMultipleExchangeRates,
+        inputFields: [
+          {key: 'hour', choices: {
+              '10am': '10 AM',
+              '11am': '11 AM',
+              '12am': '12 AM'}, required: true},
+          {key: 'from', type: 'string', required: true},
+          {key: 'to', type: 'string', required: false},
+        ],
+      }
+    },
   },
 
   // If you want your searches to show up, you better include it here!
@@ -49,7 +69,7 @@ const App = {
       noun: 'Exchange Rates',
       display: {
         label: 'Get Exchange Rates',
-        description: 'Get exchange rates'
+        description: 'Obtain exchange rates from frankfurter.app'
       },
       operation: {
         perform: getExchangeRates,
